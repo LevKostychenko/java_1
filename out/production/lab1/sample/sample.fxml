@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:controller="sample.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="167.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="_resultButton" layoutX="20.0" layoutY="127.0" mnemonicParsing="false" text="Проверить" onAction="#OnButtonClick" />
+      <Label layoutX="19.0" layoutY="99.0" prefHeight="18.0" prefWidth="77.0" text="День недели" />
+      <TextField fx:id="_yearInput" layoutX="44.0" layoutY="14.0" />
+      <TextField fx:id="_dayInput" layoutX="58.0" layoutY="50.0" />
+      <Label layoutX="14.0" layoutY="18.0" text="Год" />
+      <Label layoutX="14.0" layoutY="54.0" text="День" />
+      <Label fx:id="_weekDay" layoutX="118.0" layoutY="100.0" />
+   </children>
+</AnchorPane>
