@@ -1,19 +1,40 @@
 package Logic;
 
 import com.sun.istack.internal.NotNull;
+import java.time.LocalDate;
 
 public class CalculateLogic implements ICalculateLogic
 {
     public String GetWeekDay(int year, int dayNumber)
     {
-        int firstYearDay = GetFirstYearDay(year);
-        int day = dayNumber - ((int)(dayNumber / 7)) * 7;
+        if (dayNumber > 365) {
+            if (!(dayNumber == 366 && IsYearLeap(year)))
+            {
+                while (dayNumber > 365)
+                {
+                    if (IsYearLeap(year))
+                    {
+                        if (dayNumber <= 366)
+                        {
+                            break;
+                        }
 
-        int actualWeekDay = (day + firstYearDay) >= 7 ? day + firstYearDay - 7 : day + firstYearDay;
+                        dayNumber -= 366;
+                    }
+                    else
+                    {
+                        dayNumber -= 365;
+                    }
+
+                    year++;
+                }
+            }
+        }
 
         try
         {
-            return GetDayName(actualWeekDay);
+            int dayOfWeekNumber = LocalDate.ofYearDay( year, dayNumber ).getDayOfWeek().getValue();
+            return GetDayName(dayOfWeekNumber);
         }
         catch (Exception e)
         {
@@ -21,15 +42,16 @@ public class CalculateLogic implements ICalculateLogic
         }
     }
 
-    private int GetFirstYearDay(int year)
+    private boolean IsYearLeap(int year)
     {
-        int leapYears, years, days;
+        if (year % 4 == 0) {
+            if ((year % 100 != 0) || (year % 400 == 0))
+            {
+                return true;
+            }
+        }
 
-        years = year-1900;
-        leapYears = (years-1)/4;
-        days = years*365+leapYears;
-
-        return days%7;
+        return false;
     }
 
     @NotNull
@@ -38,11 +60,6 @@ public class CalculateLogic implements ICalculateLogic
 
         switch (weekDayNumber)
         {
-            case 0 :
-            {
-                actualWeekDayName = "Воскресенье";
-                break;
-            }
             case 1 :
             {
                 actualWeekDayName = "Понедельник";
@@ -71,6 +88,11 @@ public class CalculateLogic implements ICalculateLogic
             case 6 :
             {
                 actualWeekDayName = "Суббота";
+                break;
+            }
+            case 7 :
+            {
+                actualWeekDayName = "Воскресенье";
                 break;
             }
         }
