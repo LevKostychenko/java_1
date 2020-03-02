@@ -1,28 +1,21 @@
-package Logic;
+package logic;
 
 import com.sun.istack.internal.NotNull;
 import java.time.LocalDate;
 
-public class CalculateLogic implements ICalculateLogic
-{
-    public String GetWeekDay(int year, int dayNumber)
-    {
+public class CalculateLogic implements ICalculateLogic {
+    public String getWeekDay(int year, int dayNumber) {
         if (dayNumber > 365) {
-            if (!(dayNumber == 366 && IsYearLeap(year)))
-            {
-                while (dayNumber > 365)
-                {
-                    if (IsYearLeap(year))
-                    {
-                        if (dayNumber <= 366)
-                        {
+            if (!(dayNumber == 366 && isYearLeap(year))) {
+                while (dayNumber > 365) {
+                    if (isYearLeap(year)) {
+                        if (dayNumber <= 366) {
                             break;
                         }
 
                         dayNumber -= 366;
                     }
-                    else
-                    {
+                    else {
                         dayNumber -= 365;
                     }
 
@@ -31,22 +24,18 @@ public class CalculateLogic implements ICalculateLogic
             }
         }
 
-        try
-        {
+        try {
             int dayOfWeekNumber = LocalDate.ofYearDay( year, dayNumber ).getDayOfWeek().getValue();
-            return GetDayName(dayOfWeekNumber);
+            return getDayName(dayOfWeekNumber);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             return e.getMessage();
         }
     }
 
-    private boolean IsYearLeap(int year)
-    {
+    private boolean isYearLeap(int year) {
         if (year % 4 == 0) {
-            if ((year % 100 != 0) || (year % 400 == 0))
-            {
+            if ((year % 100 != 0) || (year % 400 == 0)) {
                 return true;
             }
         }
@@ -55,50 +44,41 @@ public class CalculateLogic implements ICalculateLogic
     }
 
     @NotNull
-    private String GetDayName (int weekDayNumber) throws Exception {
+    private String getDayName (int weekDayNumber) throws Exception {
         String actualWeekDayName = "";
 
-        switch (weekDayNumber)
-        {
-            case 1 :
-            {
+        switch (weekDayNumber) {
+            case 1 : {
                 actualWeekDayName = "Понедельник";
                 break;
             }
-            case 2 :
-            {
+            case 2 : {
                 actualWeekDayName = "Вторник";
                 break;
             }
-            case 3 :
-            {
+            case 3 : {
                 actualWeekDayName = "Среда";
                 break;
             }
-            case 4 :
-            {
+            case 4 : {
                 actualWeekDayName = "Четверг";
                 break;
             }
-            case 5 :
-            {
+            case 5 : {
                 actualWeekDayName = "Пятница";
                 break;
             }
-            case 6 :
-            {
+            case 6 : {
                 actualWeekDayName = "Суббота";
                 break;
             }
-            case 7 :
-            {
+            case 7 : {
                 actualWeekDayName = "Воскресенье";
                 break;
             }
         }
 
-        if (actualWeekDayName.isEmpty())
-        {
+        if (actualWeekDayName.isEmpty()) {
             throw new Exception("Day cannot ne defined");
         }
 

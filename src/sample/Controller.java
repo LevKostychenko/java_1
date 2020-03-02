@@ -1,9 +1,9 @@
 package sample;
 
-import Logic.CalculateLogic;
-import Logic.ConvertLogic;
-import Logic.ICalculateLogic;
-import Logic.IConvertLogic;
+import logic.CalculateLogic;
+import logic.ConvertLogic;
+import logic.ICalculateLogic;
+import logic.IConvertLogic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,49 +12,43 @@ import javafx.scene.control.TextField;
 
 public class Controller {
     @FXML
-    private Button _resultButton;
+    private Button resultButton;
     @FXML
-    private TextField _yearInput;
+    private TextField yearInput;
     @FXML
-    private TextField _dayInput;
+    private TextField dayInput;
     @FXML
-    private Label _weekDay;
+    private Label weekDay;
 
-    private int _year;
-    private int _dayNumber;
+    private int year;
+    private int dayNumber;
 
-    private IConvertLogic _convertLogic;
-    private ICalculateLogic _calculateLogic;
+    private IConvertLogic convertLogic;
+    private ICalculateLogic calculateLogic;
 
-    public Controller()
-    {
-        this._convertLogic = new ConvertLogic();
-        this._calculateLogic = new CalculateLogic();
+    public Controller() {
+        this.convertLogic = new ConvertLogic();
+        this.calculateLogic = new CalculateLogic();
     }
 
     @FXML
-    private void OnButtonClick(ActionEvent event)
-    {
-        if(_convertLogic.TryParse(this._yearInput.getText()))
-        {
-            this._year = Integer.parseInt(this._yearInput.getText());
+    private void onButtonClick(ActionEvent event) {
+        if(convertLogic.tryParse(this.yearInput.getText())) {
+            this.year = Integer.parseInt(this.yearInput.getText());
         }
-        else
-        {
-            this._year = 0;
+        else {
+            this.year = 0;
         }
 
-        if(_convertLogic.TryParse(this._dayInput.getText()))
-        {
-            this._dayNumber = Integer.parseInt(this._dayInput.getText());
+        if(convertLogic.tryParse(this.dayInput.getText())) {
+            this.dayNumber = Integer.parseInt(this.dayInput.getText());
         }
-        else
-        {
-            this._dayNumber = 0;
+        else {
+            this.dayNumber = 0;
         }
 
-        String dayName = _calculateLogic.GetWeekDay(this._year, this._dayNumber);
+        String dayName = calculateLogic.getWeekDay(this.year, this.dayNumber);
 
-        this._weekDay.setText(dayName);
+        this.weekDay.setText(dayName);
     }
 }
